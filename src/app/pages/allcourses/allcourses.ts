@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CourseClass } from '../../classes/course-class';
+import { CourseService } from '../../services/course-service';
 
 @Component({
   selector: 'app-allcourses',
@@ -6,6 +8,18 @@ import { Component } from '@angular/core';
   templateUrl: './allcourses.html',
   styleUrl: './allcourses.css',
 })
-export class Allcourses {
+export class Allcourses implements OnInit{
+  course: CourseClass = new CourseClass();
+  courses: CourseClass[] = []
 
+  constructor(private courseService: CourseService) { 
+  
+}
+
+  ngOnInit(): void {
+    this.courseService.getAll().subscribe(res => {
+      console.log(res);
+      this.courses = res; 
+    });
+  }
 }

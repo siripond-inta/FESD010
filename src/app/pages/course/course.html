@@ -1,79 +1,105 @@
-<p>course works!</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">course Id</th>
-            <th scope="col">title</th>
-            <th scope="col">description</th>
-            <th scope="col">duration</th>
-            <th scope="col">lecturer</th>
-            <th scope="col">category</th>
-            <th scope="col">Promote</th>
-            <th scope="col">course Image</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (course of courses; track $index) {
-        <tr>
-            <th scope="row">{{course['courseId']}}</th>
-            <td>{{course['title']}}</td>
-            <td>{{course['description']}}</td>
-            <td>{{course['duration']}}</td>
-            <td>{{course['lecturer']}}</td>
-            <td>{{course['category']}}</td>
-            <td>{{course['promote']}}</td>
-            <td>{{course['courseImage']}}</td>
-        </tr>
-        }
-    </tbody>
-</table>
+<h3 class="m-2"><b>Courses Management</b></h3>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">course Id</th>
+                <th scope="col">title</th>
+                <th scope="col">description</th>
+                <th scope="col">duration</th>
+                <th scope="col">lecturer</th>
+                <th scope="col">category</th>
+                <th scope="col">Promote</th>
+                <th scope="col">course Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (course of courses; track $index) {
+            <tr (click)="edit(course)" style="cursor: pointer;">
+                <th scope="row">{{course['courseId']}}</th>
+                <td>{{course['title']}}</td>
+                <td>{{course['description']}}</td>
+                <td>{{course['duration']}}</td>
+                <td>{{course['lecturer']}}</td>
+                <td>{{course['category']}}</td>
+                <td>{{course['promote']}}</td>
+                <td>{{course['courseImage']}}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-<div class="mb-3">
-    <label for="idInput" class="form-label">Course ID :</label>
-    <input type="text" class="form-control" id="idInput" placeholder="">
-</div>
-<div class="mb-3">
-    <label for="descriptionInput" class="form-label">Description</label>
-    <textarea class="form-control" id="descriptionInput" rows="3"></textarea>
-</div>
-<div class="mb-3">
-    <label for="lecturerInput" class="form-label">Lecturer</label>
-    <input type="text" class="form-control" id="lecturerInput" placeholder="">
-</div>
-<div class="row align-items-end"> <div class="col-md-4 mb-3">
-        <label for="durationInput" class="form-label">Duration</label>
-        <input type="number" class="form-control" id="durationInput" placeholder="">
-    </div>
-
-    <div class="col-md-4 mb-3">
-        <label for="categoryInput" class="form-label d-block">Category</label>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle w-100 text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Select Category
-            </button>
-            <ul class="dropdown-menu dropdown-menu-dark">
-                <li><a class="dropdown-item active" href="#">Basic</a></li>
-                <li><a class="dropdown-item" href="#">Graphics</a></li>
-                <li><a class="dropdown-item" href="#">Coding</a></li>
-                <li><a class="dropdown-item" href="#">Other</a></li>
-            </ul>
+<!-- Form -->
+<div class="card-body p-4">
+    <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="row g-3">
+        <div class="mb-3">
+            <label for="idInput" class="form-label">Course ID :</label>
+            <input type="text" class="form-control" id="idInput" placeholder="" formControlName="courseIdFormControl"
+                [class.is-invalid]="isInvalid('courseIdFormControl')">
         </div>
-    </div>
 
-    <div class="col-md-4 mb-3">
-        <label class="form-label d-block">Promote</label>
-        <div class="d-flex gap-3 pt-2"> <div class="form-check">
-                <input class="form-check-input" type="radio" name="promote" id="promoteInput1">
-                <label class="form-check-label" for="promoteInput1">Yes</label>
+        <div class="mb-3">
+            <label for="idInput" class="form-label">Course Title </label>
+            <input type="text" class="form-control" id="titleInput" placeholder="" formControlName="titleFormControl"
+                [class.is-invalid]="isInvalid('titleFormControl')">
+        </div>
+
+        <div class="mb-3">
+            <label for="descriptionInput" class="form-label">Description</label>
+            <input type="text" class="form-control" id="descriptionInput" placeholder=""
+                formControlName="descriptionFormControl" [class.is-invalid]="isInvalid('descriptionFormControl')">
+        </div>
+
+        <div class="mb-3">
+            <label for="lecturerInput" class="form-label">Lecturer</label>
+            <input type="text" class="form-control" id="lecturerInput" placeholder=""
+                formControlName="lecturerFormControl" [class.is-invalid]="isInvalid('lecturerFormControl')">
+        </div>
+
+        <div class="row align-items-end">
+            <div class="col-md-4 mb-3">
+                <label for="durationInput" class="form-label">Duration</label>
+                <input type="number" class="form-control" id="durationInput" placeholder=""
+                    formControlName="durationFormControl" [class.is-invalid]="isInvalid('durationFormControl')">
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="promote" id="promoteInput2" checked>
-                <label class="form-check-label" for="promoteInput2">No</label>
+
+            <div class="col-md-4 mb-3">
+                <label for="categoryInput" class="form-label d-block">Category</label>
+                <select class="form-select" formControlName="categoryFormControl">
+                    <option value="Basic">Basic</option>
+                    <option value="Graphics">Graphics</option>
+                    <option value="Coding">Coding</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label d-block">Promote</label>
+                <div class="d-flex gap-3 pt-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="true" formControlName="promoteFormControl"
+                            id="p1">
+                        <label class="form-check-label" for="p1">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="false" formControlName="promoteFormControl"
+                            id="p2">
+                        <label class="form-check-label" for="p2">No</label>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
+        <div class="mb-3">
+            <label for="imageInput" class="form-label">Image URL</label>
+            <input type="text" class="form-control" formControlName="courseImageFormControl">
+        </div>
+
+        <div class="col">
+            <button class="btn btn-dark mx-2" [disabled]="courseForm.invalid">Add</button>
+            <button class="btn btn-dark mx-2" (click)="onSubmit()">Update</button>
+            <button class="btn btn-danger mx-2" (click)="delete(course)">Delete</button>
+        </div>
+    </form>
 </div>
-<button>Add</button>
-<button>Update</button>
-<button>Delete</button>

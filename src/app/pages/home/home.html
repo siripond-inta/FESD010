@@ -1,18 +1,23 @@
 <h5 class="my-5 mx-2"><b>Highlight</b></h5>
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 px-2">
-    @for (couse of courses; track $index) {
-    <div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt=".. .">
-    <div class="card-body">
-        <h5 class="card-title">{{course['title']}}</h5>
-        <p class="card-text">{{course['description']}}</p>
-        <h6>{{course['lecturer']}}</h6>
-        <div class="row">
-            <h6>{{course['duration']}}</h6>
-            <a href="#" class="btn btn-primary">รายละเอียด</a>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 px-3 px-md-5">
+    @for (course of courses; track course.courseId) {
+    @if (course.promote === true) {
+    <div class="col "> 
+        <div class="card h-100 border-0 "> <div class="ratio ratio-16x9">
+            <img [src]="course.courseImage" class="card-img-top object-fit-cover" [alt]="course.title">
+            </div>
+            <div class="card-body bg-secondary text-dark bg-opacity-25">
+                <h5 class="card-title text-center">{{course.title}}</h5>
+                <p class="card-text text-wrap bg-light p-2">{{course.description}}</p>
+                <h6>Lecturer: {{course.lecturer}}</h6>
+                <div class="mt-auto d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2"> 
+                    <h6>Duration: {{course.duration}} ชม.</h6>
+                    <a href="#" class="btn btn-primary">รายละเอียด</a>
+                </div>
+            </div>
         </div>
     </div>
-    </div>
+    }
     }
 </div>
-<a routerLink="/allcoursespage">หลักสูตรทั้งหมด</a>
+<a class="d-flex justify-content-end m-5" routerLink="/allcoursespage">หลักสูตรทั้งหมด</a>

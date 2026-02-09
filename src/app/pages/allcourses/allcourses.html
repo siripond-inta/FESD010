@@ -1,12 +1,35 @@
-<p>allcourses works!</p>
-<div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">title</h5>
-        <p class="card-text">description</p>
-        <h6>lecturer</h6>
-        <h6>duration</h6>
-        <h6>category</h6>
-        <a href="#" class="btn btn-primary">Apply</a>
-    </div>
+<div class="row row-cols-1 row-cols-md-1 g-4 px-5"> 
+    @for (course of courses; track course.courseId) {
+        <div class="col">
+            <div class="card h-100 border-0 overflow-hidden shadow-sm">
+                <div class="row g-0 h-100">
+
+                    <div class="col-12 col-md-4">
+                        <div class="h-100 ratio ratio-1x1"> <img [src]="course.courseImage" 
+                                 class="img-fluid h-100 object-fit-cover" 
+                                 [alt]="course.title">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-8">
+                        <div class="card-body bg-secondary text-dark bg-opacity-25 h-100 d-flex flex-column p-3">
+                            <h5 class="card-title fw-bold mb-1">{{course.title}}</h5>
+                            <p class="card-text mb-1">{{course.description}}</p>
+                            
+                            <div class="small text-muted mb-2">
+                                <div class="mb-1">Lecturer: {{course.lecturer}}</div>
+                                <div class="mb-1">Duration: {{course.duration}} ชม.</div>
+                                <div class="mb-1">Category: {{course.category}}</div>
+                            </div>
+
+                            <div class="mt-auto">
+                                <a href="#" class="btn btn-primary btn-sm px-4">Apply</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        }
 </div>
